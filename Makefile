@@ -12,6 +12,7 @@ install:
 # setting sample and restart
 .PHONY: set_sample
 set_sample: sample restart
+	@echo wait 10 seconds to DD-agent to stabilize then run info command.
 	sleep 10
 	/etc/init.d/datadog-agent info
 
