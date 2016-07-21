@@ -12,12 +12,12 @@ install:
 
 # run datadog-agent stop command
 .PHONY: stop
-info:
+stop:
 	/etc/init.d/datadog-agent stop
 
 # run datadog-agent start command
 .PHONY: start
-info:
+start:
 	/etc/init.d/datadog-agent start
 
 # run datadog-agent restart command
@@ -40,4 +40,3 @@ set_sample:
 .PHONY: clean
 clean:
 	rm -f *.pyc
-
