@@ -9,7 +9,7 @@ class CustomCheck(AgentCheck):
         ntp_stats = ntplib.NTPClient().request(**req_args)
         ntp_ts = ntp_stats.recv_time
         service_check_msg = 'this is test message for custom check'
-        tags = ['host:1604TLSi']
+        tags = ['hostname:1604TLSi', 'test-level:dev']
 
         status = AgentCheck.OK
 
