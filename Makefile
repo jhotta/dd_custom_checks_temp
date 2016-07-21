@@ -9,6 +9,17 @@ install:
 	@echo
 	@echo DD-agent is restarted with the sample check.
 
+
+# run datadog-agent stop command
+.PHONY: stop
+info:
+	/etc/init.d/datadog-agent stop
+
+# run datadog-agent start command
+.PHONY: start
+info:
+	/etc/init.d/datadog-agent start
+
 # run datadog-agent restart command
 .PHONY: restart
 restart:
@@ -22,6 +33,8 @@ info:
 # set sample checks to /etc/dd-agent
 .PHONY: set_sample
 set_sample:
+	cp conf.d/sample.yaml
+	cp checks.d/sample.py
 
 # Cleaning all unwanted files
 .PHONY: clean
