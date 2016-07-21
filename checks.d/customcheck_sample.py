@@ -1,5 +1,6 @@
 import ntplib
 from checks import AgentCheck
+from utils.ntp import NTPUtil
 
 class CustomCheck(AgentCheck):
     def check(self, instance):
