@@ -52,7 +52,7 @@ wait_info:
 
 # set basic_sample checks to /etc/dd-agent
 .PHONY: basic_sample
-basic:
+basic_sample:
 	cp conf.d/basic_sample.yaml /etc/dd-agent/conf.d/
 	cp checks.d/basic_sample.py /etc/dd-agent/checks.d/
 
