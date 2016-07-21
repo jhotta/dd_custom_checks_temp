@@ -16,6 +16,13 @@ set_sample: sample restart
 	sleep 10
 	/etc/init.d/datadog-agent info
 
+# setting my_first and restart
+.PHONY: set_my_first
+set_my_first: my_first restart
+	@echo wait 10 seconds to DD-agent to stabilize then run info command.
+	sleep 15
+	/etc/init.d/datadog-agent info
+
 # run datadog-agent stop command
 .PHONY: stop
 stop:
@@ -42,7 +49,14 @@ sample:
 	cp conf.d/sample.yaml /etc/dd-agent/conf.d/
 	cp checks.d/sample.py /etc/dd-agent/checks.d/
 
+# set sample checks to /etc/dd-agent
+.PHONY: my_first
+my_first:
+	cp conf.d/my_first.yaml /etc/dd-agent/conf.d/
+	cp checks.d/my_first.py /etc/dd-agent/checks.d/
+
 # Cleaning all unwanted files
 .PHONY: clean
 clean:
 	rm -f *.pyc
+	rm -f /etc/dd-agent/checks.d/*.pyc
