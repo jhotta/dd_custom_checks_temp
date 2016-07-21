@@ -13,6 +13,6 @@ class CustomCheck(AgentCheck):
 
         status = AgentCheck.OK
 
-        self.service_check('customcheck.myapp', status=status, timestamp=ntp_ts, message=service_check_msg, tags=tags)
+        self.service_check('customcheck.customcheck', status=status, timestamp=ntp_ts, message=service_check_msg, tags=tags)
         self.gauge('customcheck.myapp', 1)
 
