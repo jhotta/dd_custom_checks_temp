@@ -9,13 +9,19 @@ install:
 	@echo
 	@echo Not deployed yet.
 
+
+
 # setting sample and restart
-.PHONY: set_sample
-set_sample: sample restart wait_info
+.PHONY: set_samples
+set_samples: basic_sample http_sample restart wait_info
+
+# setting basic and restart
+.PHONY: set_basic
+set_basic: basic_sample restart wait_info
 
 # setting my_first and restart
-.PHONY: set_my_first
-set_my_first: my_first restart wait_info
+.PHONY: set_http
+set_my_first: http_sample restart wait_info
 
 # run datadog-agent stop command
 .PHONY: stop
@@ -44,28 +50,30 @@ wait_info:
 	sleep 15
 	/etc/init.d/datadog-agent info
 
-# set sample checks to /etc/dd-agent
-.PHONY: sample
-sample:
-	cp conf.d/sample.yaml /etc/dd-agent/conf.d/
-	cp checks.d/sample.py /etc/dd-agent/checks.d/
+# set basic_sample checks to /etc/dd-agent
+.PHONY: basic_sample
+basic:
+	cp conf.d/basic_sample.yaml /etc/dd-agent/conf.d/
+	cp checks.d/basic_sample.py /etc/dd-agent/checks.d/
 
-# set sample checks to /etc/dd-agent
-.PHONY: my_first
-my_first:
-	cp conf.d/my_first.yaml /etc/dd-agent/conf.d/
-	cp checks.d/my_first.py /etc/dd-agent/checks.d/
+# set http-sample checks to /etc/dd-agent
+.PHONY: http_sample
+http_sample:
+	cp conf.d/http_sample.yaml /etc/dd-agent/conf.d/
+	cp checks.d/http_sample.py /etc/dd-agent/checks.d/
 
 # Clean and restart
 .PHONY: clean_all
-clean_all: clean_files restart wait_info
+clean_all: clean_samples restart wait_info
 
-# Cleaning all unwanted files
+# Cleaning all samples files
+.PHONY: clean_samples
+clean_samples: clean_pyc
+	rm -f /etc/dd-agent/checks.d/*_sample.py
+	rm -f /etc/dd-agent/conf.d/*_sample.yaml
+
+# Cleaning all *pyc files
 .PHONY: clean_files
-clean_files:
-	rm -f /etc/dd-agent/checks.d/sample.py
-	rm -f /etc/dd-agent/conf.d/sample.yaml
-	rm -f /etc/dd-agent/checks.d/my_first.py
-	rm -f /etc/dd-agent/conf.d/my_first.yaml
+clean_pyc:
 	rm -f *.pyc
 	rm -f /etc/dd-agent/checks.d/*.pyc

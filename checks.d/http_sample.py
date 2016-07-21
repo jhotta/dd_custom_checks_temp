@@ -53,7 +53,7 @@ class HTTPCheck(AgentCheck):
         })
 
 if __name__ == '__main__':
-    check, instances = HTTPCheck.from_yaml('/path/to/conf.d/http.yaml')
+    check, instances = HTTPCheck.from_yaml('../conf.d/my_first.yaml')
     for instance in instances:
         print "\nRunning the check against url: %s" % (instance['url'])
         check.check(instance)
