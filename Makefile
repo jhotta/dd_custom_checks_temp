@@ -9,8 +9,6 @@ install:
 	@echo
 	@echo Not deployed yet.
 
-
-
 # setting sample and restart
 .PHONY: set_samples
 set_samples: basic_sample http_sample restart wait_info
@@ -21,7 +19,11 @@ set_basic: basic_sample restart wait_info
 
 # setting my_first and restart
 .PHONY: set_http
-set_my_first: http_sample restart wait_info
+set_http: http_sample restart wait_info
+
+# setting my_first and restart
+.PHONY: set_customcheck
+set_customcheck: customcheck_sample restart wait_info
 
 # run datadog-agent stop command
 .PHONY: stop
@@ -56,11 +58,17 @@ basic_sample:
 	cp conf.d/basic_sample.yaml /etc/dd-agent/conf.d/
 	cp checks.d/basic_sample.py /etc/dd-agent/checks.d/
 
-# set http-sample checks to /etc/dd-agent
+# set http_sample checks to /etc/dd-agent
 .PHONY: http_sample
 http_sample:
 	cp conf.d/http_sample.yaml /etc/dd-agent/conf.d/
 	cp checks.d/http_sample.py /etc/dd-agent/checks.d/
+
+# set customcheck_sample checks to /etc/dd-agent
+.PHONY: customcheck_sample
+customcheck_sample:
+	cp conf.d/customcheck_sample.yaml /etc/dd-agent/conf.d/
+	cp checks.d/customcheck_sample.py /etc/dd-agent/checks.d/
 
 # Clean and restart
 .PHONY: clean_all
